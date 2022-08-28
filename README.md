@@ -4,4 +4,4 @@
 
 The repository for the installer of Download Manager.
 
-For the Download Managaer repository please go [here](https://github.com/Download-Manager-Community/Download-Manager).
+For the Download Manager repository please go [here](https://github.com/Download-Manager-Community/Download-Manager).
