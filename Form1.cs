@@ -307,12 +307,23 @@ namespace DownloadManagerInstaller
                         }
                         else if (ex == new IOException())
                         {
-                            Environment.Exit(3);
+                            if (ex.Message == "The file exists")
+                            {
+                                Environment.Exit(4);
+                            }
+                            else if (ex.Message == "There is not enough space on the disk.")
+                            {
+                                Environment.Exit(5);
+                            }
+                            else
+                            {
+                                Environment.Exit(3);
+                            }
                         }
                         else
                         {
                             Debug.WriteLine(ex.Message);
-                            Environment.Exit(4);
+                            Environment.Exit(6);
                         }
                     }
                 });
