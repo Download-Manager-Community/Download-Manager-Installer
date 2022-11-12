@@ -2,6 +2,7 @@ using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Reflection;
 using File = System.IO.File;
 
 namespace DownloadManagerInstaller
@@ -17,32 +18,58 @@ namespace DownloadManagerInstaller
         string md5Hash = "";
         bool installing = false;
 
-        public Form1(string? args)
+        public Form1(string[]? args)
         {
             _instance = this;
             InitializeComponent();
-            if (args == "install")
+            try
             {
-                silentInstall = true;
-                _instance.Hide();
-                _instance.ShowInTaskbar = false;
-                _instance.WindowState = FormWindowState.Minimized;
-                _instance.Visible = false;
-                textBox1.Text = @"C:\Download Manager\";
-                checkBox1.Checked = true;
-                checkBox2.Checked = true;
-                Install();
+                if (args[0] == "install")
+                {
+                    silentInstall = true;
+                    _instance.Hide();
+                    _instance.ShowInTaskbar = false;
+                    _instance.WindowState = FormWindowState.Minimized;
+                    _instance.Visible = false;
+                    textBox1.Text = @"C:\Download Manager\";
+                    checkBox1.Checked = true;
+                    checkBox2.Checked = true;
+                    Install();
+                }
+                else if (args[0] == "update")
+                {
+                    _instance.Hide();
+                    _instance.ShowInTaskbar = false;
+                    _instance.WindowState = FormWindowState.Minimized;
+                    _instance.Visible = false;
+                    update = true;
+                    UpdateForm updateForm = new UpdateForm();
+                    updateForm.Show();
+                }
+                else if (args[0] == "uninstall")
+                {
+                    _instance.Hide();
+                    _instance.ShowInTaskbar = false;
+                    _instance.WindowState = FormWindowState.Minimized;
+                    _instance.Visible = false;
+                    try
+                    {
+                        if (args[1] == null || args[1] == "")
+                        {
+                            Uninstall();
+                        }
+                        else
+                        {
+                            Uninstall(true, args[1]);
+                        }
+                    }
+                    catch
+                    {
+                        Uninstall();
+                    }
+                }
             }
-            else if (args == "update")
-            {
-                _instance.Hide();
-                _instance.ShowInTaskbar = false;
-                _instance.WindowState = FormWindowState.Minimized;
-                _instance.Visible = false;
-                update = true;
-                UpdateForm updateForm = new UpdateForm();
-                updateForm.Show();
-            }
+            catch { }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -353,6 +380,102 @@ namespace DownloadManagerInstaller
                     }
                 });
                 thread.Start();
+            }
+        }
+
+        public void Uninstall(bool skipDialog = false, string installationPath = "")
+        {
+            if (skipDialog == false)
+            {
+                MessageBox.Show("Are you sure you want to remove Download Manager from this computer?", "Uninstall Download Manager?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+
+            if (installationPath != "")
+            {
+                bool doneWithErrors = false;
+
+                try
+                {
+                    Directory.Delete(installationPath, true);
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = MessageBox.Show(ex.Message, "Uninstallation Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                    if (result == DialogResult.Abort)
+                    {
+                        MessageBox.Show("The operation has been canceled by the user.", "Uninstallation Aborted", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Application.Exit();
+                    }
+                    else if (result == DialogResult.Retry)
+                    {
+                        Uninstall(true, installationPath);
+                    }
+                    else if (result == DialogResult.Ignore)
+                    {
+                        doneWithErrors = true;
+                    }
+                }
+
+                try
+                {
+                    string Install_Reg_Loc = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+                    RegistryKey hKey = (Registry.LocalMachine).OpenSubKey(Install_Reg_Loc, true);
+                    hKey.DeleteSubKey("Download Manager");
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = MessageBox.Show(ex.Message, "Uninstallation Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                    if (result == DialogResult.Abort)
+                    {
+                        MessageBox.Show("The operation has been canceled by the user.", "Uninstallation Aborted", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Application.Exit();
+                    }
+                    else if (result == DialogResult.Retry)
+                    {
+                        Uninstall(true, installationPath);
+                    }
+                    else if (result == DialogResult.Ignore)
+                    {
+                        doneWithErrors = true;
+                    }
+                }
+
+                if (doneWithErrors)
+                {
+                    MessageBox.Show("Download Manager has been removed from your computer with errors.", "Uninstall", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Application.Exit();
+                }
+                else
+                {
+                    MessageBox.Show("Download Manager has been removed from your computer.", "Uninstall", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                Application.Exit();
+            }
+            else
+            {
+                // Copy installer files to temporary directory
+                string newdir = Path.GetTempPath() + "DownloadManagerInstaller\\";
+                string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
+
+                if (Directory.Exists(newdir))
+                    Directory.Delete(newdir, true);
+                Directory.CreateDirectory(newdir);
+                File.Copy(dir + "\\DownloadManagerInstaller.exe", newdir + "\\DownloadManagerInstaller.exe");
+                File.Copy(dir + "\\DownloadManagerInstaller.dll", newdir + "\\DownloadManagerInstaller.dll");
+                File.Copy(dir + "\\DownloadManagerInstaller.deps.json", newdir + "\\DownloadManagerInstaller.deps.json");
+                File.Copy(dir + "\\DownloadManagerInstaller.pdb", newdir + "\\DownloadManagerInstaller.pdb");
+                File.Copy(dir + "\\DownloadManagerInstaller.runtimeconfig.json", newdir + "\\DownloadManagerInstaller.runtimeconfig.json");
+
+                ProcessStartInfo info = new ProcessStartInfo();
+                //info.FileName = newdir + "DownloadManagerInstaller.exe";
+                info.FileName = "C:\\Users\\Sonic\\AppData\\Local\\Temp\\DownloadManagerInstaller\\DownloadManagerInstaller.exe";
+                info.Arguments = "--uninstall " + '"' + dir + "\\" + '"';
+                info.WorkingDirectory = "C:\\Users\\Sonic\\AppData\\Local\\Temp\\DownloadManagerInstaller\\";
+                info.UseShellExecute = true;
+                Process.Start(info);
+
+                Process.GetCurrentProcess().Kill();
             }
         }
 

@@ -12,6 +12,11 @@
       "commandName": "Executable",
       "executablePath": "D:\\DownloadManager\\DownloadManagerInstaller\\bin\\Debug\\net6.0-windows\\DownloadManagerInstaller.exe",
       "commandLineArgs": "--install"
+    },
+    "DownloadManagerInstaller Uninstall": {
+      "commandName": "Executable",
+      "executablePath": "D:\\Download Manager Source\\Installer\\bin\\Debug\\net6.0-windows\\DownloadManagerInstaller.exe",
+      "commandLineArgs": "--uninstall"
     }
   }
 }

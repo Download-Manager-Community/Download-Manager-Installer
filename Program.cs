@@ -24,12 +24,34 @@ namespace DownloadManagerInstaller
                         if (args[0] == "--install")
                         {
                             // Install
-                            Application.Run(new Form1("install"));
+                            Application.Run(new Form1(new string[] { "install" }));
                         }
                         else if (args[0] == "--update")
                         {
                             // Update
-                            Application.Run(new Form1("update"));
+                            Application.Run(new Form1(new string[] { "update" }));
+                        }
+                        else if (args[0] == "--uninstall")
+                        {
+                            // Uninstall
+                            try
+                            {
+                                if (args[1] == null || args[1] == "")
+                                {
+                                    Application.Run(new Form1(new string[] { "uninstall" }));
+                                }
+                                else
+                                {
+                                    Application.Run(new Form1(new string[]{
+                                    "uninstall",
+                                    args[1]
+                                }));
+                                }
+                            }
+                            catch
+                            {
+                                Application.Run(new Form1(new string[] { "uninstall" }));
+                            }
                         }
                         else
                         {
