@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace DownloadManagerInstaller
 {
     internal static class Program
@@ -13,19 +15,26 @@ namespace DownloadManagerInstaller
 
             ApplicationConfiguration.Initialize();
 
-            if (args != null)
+            try
             {
-                if (args.Length > 0)
+                if (args != null)
                 {
-                    if (args[0] == "--install")
+                    if (args.Length > 0)
                     {
-                        // Install
-                        Application.Run(new Form1("install"));
-                    }
-                    else if (args[0] == "--update")
-                    {
-                        // Update
-                        Application.Run(new Form1("update"));
+                        if (args[0] == "--install")
+                        {
+                            // Install
+                            Application.Run(new Form1("install"));
+                        }
+                        else if (args[0] == "--update")
+                        {
+                            // Update
+                            Application.Run(new Form1("update"));
+                        }
+                        else
+                        {
+                            Application.Run(new Form1(null));
+                        }
                     }
                     else
                     {
@@ -37,9 +46,26 @@ namespace DownloadManagerInstaller
                     Application.Run(new Form1(null));
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Application.Run(new Form1(null));
+                Application.ExitThread();
+                DialogResult result = MessageBox.Show("A fatal error occurred and Download Manager installer cannot continue.\nClick 'Cancel' to exit the application now.\nClick 'Retry' to open a new instance of the installer.\nPlease file a bug report with the following information.\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Fatal Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                if (result == DialogResult.Retry)
+                {
+                    try
+                    {
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = Application.ExecutablePath;
+                        info.Arguments = args.ToString();
+                        info.UseShellExecute = true;
+                        Process.Start(info);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Failed to start a new instance of the installer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    Application.Exit();
+                }
             }
         }
     }
