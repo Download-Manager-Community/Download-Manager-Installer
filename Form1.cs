@@ -99,7 +99,7 @@ namespace DownloadManagerInstaller
                 button1.Enabled = false;
                 checkBox3.Visible = true;
                 checkBox3.Enabled = false;
-                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath(), "16bea09b03d106138b4aaad4e7a42829");
+                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Download-Manager-Community/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath(), "16bea09b03d106138b4aaad4e7a42829");
                 progress.ShowDialog();
                 installStage += 1;
             }
