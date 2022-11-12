@@ -1,4 +1,5 @@
 using IWshRuntimeLibrary;
+using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO.Compression;
 using File = System.IO.File;
@@ -157,6 +158,9 @@ namespace DownloadManagerInstaller
 
                         _instance.Invoke(increaseProgress20);
 
+                        // Write icon to directory
+                        File.WriteAllBytes(path + "icon.ico", Properties.Resources.icon1);
+
                         // Create desktop shortcut
                         if (checkBox1.Checked)
                         {
@@ -198,13 +202,23 @@ namespace DownloadManagerInstaller
 
                         _instance.Invoke(increaseProgress10);
 
+                        // Add an add/remove programs entry
+                        string appName = "Download Manager";
+                        string installLocation = path + "DownloadManager.exe";
+                        string displayIcon = path + "icon.ico";
+                        string uninstallString = path + "DownloadManagerInstaller.exe --uninstall";
+
+                        RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString);
+
+                        _instance.Invoke(increaseProgress10);
+
                         Invoke(new MethodInvoker(delegate ()
-                        {
-                            label5.Text = "Download Manager has installed successfully.";
-                            checkBox4.Visible = true;
-                            button1.Enabled = true;
-                            installing = false;
-                        }));
+                            {
+                                label5.Text = "Download Manager has installed successfully.";
+                                checkBox4.Visible = true;
+                                button1.Enabled = true;
+                                installing = false;
+                            }));
                     }
                     catch (Exception ex)
                     {
@@ -251,6 +265,9 @@ namespace DownloadManagerInstaller
                         // Delete zip
                         File.Delete(path + "install.zip");
 
+                        // Write icon to directory
+                        File.WriteAllBytes(path + "icon.ico", Properties.Resources.icon1);
+
                         // Create desktop shortcut
                         if (checkBox1.Checked)
                         {
@@ -287,6 +304,14 @@ namespace DownloadManagerInstaller
                             shortcut.TargetPath = pathToExe;
                             shortcut.Save();
                         }
+
+                        // Add an add/remove programs entry
+                        string appName = "Download Manager";
+                        string installLocation = path + "DownloadManager.exe";
+                        string displayIcon = path + "icon.ico";
+                        string uninstallString = path + "DownloadManagerInstaller.exe --uninstall";
+
+                        RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString);
 
                         Invoke(new MethodInvoker(delegate ()
                         {
@@ -329,6 +354,25 @@ namespace DownloadManagerInstaller
                 });
                 thread.Start();
             }
+        }
+
+        public static void RegisterControlPanelProgram(string appName, string installLocation, string displayicon, string uninstallString)
+        {
+            string Install_Reg_Loc = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+            RegistryKey hKey = (Registry.LocalMachine).OpenSubKey(Install_Reg_Loc, true);
+
+            if (hKey == null)
+            {
+                MessageBox.Show("Add/Remove programs registry key not found.\nDownload Manager can only be uninstalled with the following command:\n" + uninstallString + "\nIf this error persists, ensure the installer has permissions to access the registry and file a bug report.", "Setup - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            RegistryKey appKey = hKey.CreateSubKey(appName);
+            appKey.SetValue("DisplayName", (object)appName, RegistryValueKind.String);
+            appKey.SetValue("Publisher", (object)"Soniczac7", RegistryValueKind.String);
+            appKey.SetValue("InstallLocation", (object)installLocation, RegistryValueKind.ExpandString);
+            appKey.SetValue("DisplayIcon", (object)displayicon, RegistryValueKind.String);
+            appKey.SetValue("UninstallString", (object)uninstallString, RegistryValueKind.ExpandString);
         }
 
         public void LicenseDownloaded(string path)

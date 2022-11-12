@@ -5,6 +5,11 @@ VisualStudioVersion = 17.2.32427.441
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DownloadManagerInstaller", "DownloadManagerInstaller.csproj", "{4F32DD63-CF88-4572-BB5C-B68D2170E26F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA293CEC-7AC7-4141-9782-07D396752E2A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
