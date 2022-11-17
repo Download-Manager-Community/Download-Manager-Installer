@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ph7gXTpXurR+x2d/AirktFnJf2VTmM0islPbZrbrt7vU5jUJtcgxtYWt4vlg2jLZ5mqCo60qA0okA5z8CoE0iw==",
+  "dgSpecHash": "6PGlQ2ZW+ITSdt/35H6loTFJjgXLjReRmFXcodpDhAkrl8TJmhUzryd7WaMrSQHzDQzP8C0gxG5QdZPqY4ORew==",
   "success": true,
-  "projectFilePath": "D:\\Download Manager\\Installer\\DownloadManagerInstaller.csproj",
+  "projectFilePath": "D:\\Download Manager Source\\Installer\\DownloadManagerInstaller.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

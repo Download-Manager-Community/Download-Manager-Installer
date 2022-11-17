@@ -267,6 +267,7 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(6, 139);
             this.progressBar1.MarqueeAnimationSpeed = 10;
+            this.progressBar1.Maximum = 110;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(483, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -305,8 +306,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.checkBox4);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
