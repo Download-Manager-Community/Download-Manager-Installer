@@ -42,3 +42,25 @@ D:\Download Manager Source\Installer\bin\Debug\net6.0-windows\DownloadManagerIns
 D:\Download Manager Source\Installer\bin\Debug\net6.0-windows\DownloadManagerInstaller.pdb
 D:\Download Manager Source\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.genruntimeconfig.cache
 D:\Download Manager Source\Installer\obj\Debug\net6.0-windows\ref\DownloadManagerInstaller.dll
+D:\Download Manager\Installer\bin\Debug\net6.0-windows\DownloadManagerInstaller.exe
+D:\Download Manager\Installer\bin\Debug\net6.0-windows\DownloadManagerInstaller.deps.json
+D:\Download Manager\Installer\bin\Debug\net6.0-windows\DownloadManagerInstaller.runtimeconfig.json
+D:\Download Manager\Installer\bin\Debug\net6.0-windows\DownloadManagerInstaller.dll
+D:\Download Manager\Installer\bin\Debug\net6.0-windows\DownloadManagerInstaller.pdb
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.csproj.AssemblyReference.cache
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\Interop.IWshRuntimeLibrary.dll
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.csproj.ResolveComReference.cache
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.DownloadProgress.resources
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.Form1.resources
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.Properties.Resources.resources
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.UpdateForm.resources
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.csproj.GenerateResource.cache
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.GeneratedMSBuildEditorConfig.editorconfig
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.AssemblyInfoInputs.cache
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.AssemblyInfo.cs
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.csproj.CoreCompileInputs.cache
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.dll
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\refint\DownloadManagerInstaller.dll
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.pdb
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\DownloadManagerInstaller.genruntimeconfig.cache
+D:\Download Manager\Installer\obj\Debug\net6.0-windows\ref\DownloadManagerInstaller.dll
