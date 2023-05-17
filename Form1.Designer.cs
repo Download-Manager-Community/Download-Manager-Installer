@@ -28,308 +28,330 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label5 = new System.Windows.Forms.Label();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
+            pictureBox1 = new PictureBox();
+            label1 = new Label();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            button2 = new Button();
+            textBox1 = new TextBox();
+            label2 = new Label();
+            tabPage2 = new TabPage();
+            certCheckbox = new CheckBox();
+            label6 = new Label();
+            startMenuCheckbox = new CheckBox();
+            label4 = new Label();
+            desktopShortcutCheckbox = new CheckBox();
+            label3 = new Label();
+            button1 = new Button();
+            folderBrowserDialog1 = new FolderBrowserDialog();
+            toolTip1 = new ToolTip(components);
+            tabControl2 = new TabControl();
+            tabPage3 = new TabPage();
+            richTextBox1 = new RichTextBox();
+            licenceCheckbox = new CheckBox();
+            groupBox1 = new GroupBox();
+            progressBar1 = new ProgressBar();
+            label5 = new Label();
+            openCheckbox = new CheckBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            tabControl2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            groupBox1.SuspendLayout();
+            SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::DownloadManagerInstaller.Properties.Resources.icon;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(29, 28);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.Image = Properties.Resources.icon;
+            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(29, 28);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(47, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 28);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Download Manager";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(47, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(185, 28);
+            label1.TabIndex = 1;
+            label1.Text = "Download Manager";
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 50);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(499, 283);
-            this.tabControl1.TabIndex = 2;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(12, 50);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(499, 283);
+            tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(491, 255);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Location";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(button2);
+            tabPage1.Controls.Add(textBox1);
+            tabPage1.Controls.Add(label2);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(491, 255);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Location";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(464, 25);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(24, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            button2.Location = new Point(464, 25);
+            button2.Name = "button2";
+            button2.Size = new Size(24, 23);
+            button2.TabIndex = 2;
+            button2.Text = "...";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(452, 23);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "C:\\Download Manager\\";
+            textBox1.Location = new Point(6, 25);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(452, 23);
+            textBox1.TabIndex = 1;
+            textBox1.Text = "C:\\Download Manager\\";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Cursor = System.Windows.Forms.Cursors.Help;
-            this.label2.Location = new System.Drawing.Point(6, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 15);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Install Location";
-            this.toolTip1.SetToolTip(this.label2, "The location to install Download Manager.");
+            label2.AutoSize = true;
+            label2.Cursor = Cursors.Help;
+            label2.Location = new Point(6, 7);
+            label2.Name = "label2";
+            label2.Size = new Size(87, 15);
+            label2.TabIndex = 0;
+            label2.Text = "Install Location";
+            toolTip1.SetToolTip(label2, "The location to install Download Manager.");
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.checkBox2);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.checkBox1);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(491, 255);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Components";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Controls.Add(certCheckbox);
+            tabPage2.Controls.Add(label6);
+            tabPage2.Controls.Add(startMenuCheckbox);
+            tabPage2.Controls.Add(label4);
+            tabPage2.Controls.Add(desktopShortcutCheckbox);
+            tabPage2.Controls.Add(label3);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(491, 255);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Components";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // certCheckbox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(12, 71);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 6;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            certCheckbox.AutoSize = true;
+            certCheckbox.Checked = true;
+            certCheckbox.CheckState = CheckState.Checked;
+            certCheckbox.Location = new Point(12, 116);
+            certCheckbox.Name = "certCheckbox";
+            certCheckbox.Size = new Size(15, 14);
+            certCheckbox.TabIndex = 8;
+            certCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Cursor = Cursors.Help;
+            label6.Location = new Point(6, 97);
+            label6.Name = "label6";
+            label6.Size = new Size(258, 15);
+            label6.TabIndex = 7;
+            label6.Text = "Install Code Signing Certificate (recommended)";
+            toolTip1.SetToolTip(label6, resources.GetString("label6.ToolTip"));
+            // 
+            // startMenuCheckbox
+            // 
+            startMenuCheckbox.AutoSize = true;
+            startMenuCheckbox.Checked = true;
+            startMenuCheckbox.CheckState = CheckState.Checked;
+            startMenuCheckbox.Location = new Point(12, 71);
+            startMenuCheckbox.Name = "startMenuCheckbox";
+            startMenuCheckbox.Size = new Size(15, 14);
+            startMenuCheckbox.TabIndex = 6;
+            startMenuCheckbox.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Cursor = System.Windows.Forms.Cursors.Help;
-            this.label4.Location = new System.Drawing.Point(6, 52);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 15);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Start Menu Shortcut";
-            this.toolTip1.SetToolTip(this.label4, "If checked the installer will create a shortcut in your start menu for Download M" +
-        "anager.");
+            label4.AutoSize = true;
+            label4.Cursor = Cursors.Help;
+            label4.Location = new Point(6, 52);
+            label4.Name = "label4";
+            label4.Size = new Size(113, 15);
+            label4.TabIndex = 5;
+            label4.Text = "Start Menu Shortcut";
+            toolTip1.SetToolTip(label4, "If checked the installer will create a shortcut in your start menu for Download Manager.");
             // 
-            // checkBox1
+            // desktopShortcutCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(12, 26);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            desktopShortcutCheckbox.AutoSize = true;
+            desktopShortcutCheckbox.Checked = true;
+            desktopShortcutCheckbox.CheckState = CheckState.Checked;
+            desktopShortcutCheckbox.Location = new Point(12, 26);
+            desktopShortcutCheckbox.Name = "desktopShortcutCheckbox";
+            desktopShortcutCheckbox.Size = new Size(15, 14);
+            desktopShortcutCheckbox.TabIndex = 4;
+            desktopShortcutCheckbox.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Cursor = System.Windows.Forms.Cursors.Help;
-            this.label3.Location = new System.Drawing.Point(6, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 15);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Desktop Shortcut";
-            this.toolTip1.SetToolTip(this.label3, "If checked the installer will create a shortcut on your desktop for Download Mana" +
-        "ger.");
+            label3.AutoSize = true;
+            label3.Cursor = Cursors.Help;
+            label3.Location = new Point(6, 7);
+            label3.Name = "label3";
+            label3.Size = new Size(98, 15);
+            label3.TabIndex = 2;
+            label3.Text = "Desktop Shortcut";
+            toolTip1.SetToolTip(label3, "If checked the installer will create a shortcut on your desktop for Download Manager.");
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(436, 339);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Next";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Location = new Point(436, 339);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 0;
+            button1.Text = "Next";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // toolTip1
             // 
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.toolTip1.ToolTipTitle = "Help";
+            toolTip1.IsBalloon = true;
+            toolTip1.ToolTipIcon = ToolTipIcon.Info;
+            toolTip1.ToolTipTitle = "Help";
             // 
             // tabControl2
             // 
-            this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Location = new System.Drawing.Point(12, 50);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(499, 283);
-            this.tabControl2.TabIndex = 3;
-            this.tabControl2.Visible = false;
+            tabControl2.Controls.Add(tabPage3);
+            tabControl2.Location = new Point(12, 50);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(499, 283);
+            tabControl2.TabIndex = 3;
+            tabControl2.Visible = false;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.richTextBox1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(491, 255);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "License";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(richTextBox1);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(491, 255);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "License";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(485, 249);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            richTextBox1.Dock = DockStyle.Fill;
+            richTextBox1.Location = new Point(3, 3);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Size = new Size(485, 249);
+            richTextBox1.TabIndex = 0;
+            richTextBox1.Text = "";
             // 
-            // checkBox3
+            // licenceCheckbox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(12, 343);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(135, 19);
-            this.checkBox3.TabIndex = 4;
-            this.checkBox3.Text = "I agree to the licence";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.Visible = false;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            licenceCheckbox.AutoSize = true;
+            licenceCheckbox.Location = new Point(12, 343);
+            licenceCheckbox.Name = "licenceCheckbox";
+            licenceCheckbox.Size = new Size(135, 19);
+            licenceCheckbox.TabIndex = 4;
+            licenceCheckbox.Text = "I agree to the licence";
+            licenceCheckbox.UseVisualStyleBackColor = true;
+            licenceCheckbox.Visible = false;
+            licenceCheckbox.CheckedChanged += checkBox3_CheckedChanged;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.progressBar1);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(12, 50);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(499, 283);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Visible = false;
+            groupBox1.Controls.Add(progressBar1);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Location = new Point(12, 50);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(499, 283);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Visible = false;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(6, 139);
-            this.progressBar1.MarqueeAnimationSpeed = 10;
-            this.progressBar1.Maximum = 110;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(483, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 1;
+            progressBar1.Location = new Point(6, 139);
+            progressBar1.MarqueeAnimationSpeed = 10;
+            progressBar1.Maximum = 120;
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(483, 23);
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            progressBar1.TabIndex = 1;
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(109, 107);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(268, 15);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Please wait while setup installs the latest version...";
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Location = new Point(109, 107);
+            label5.Name = "label5";
+            label5.Size = new Size(268, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Please wait while setup installs the latest version...";
             // 
-            // checkBox4
+            // openCheckbox
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Checked = true;
-            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(12, 343);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(162, 19);
-            this.checkBox4.TabIndex = 6;
-            this.checkBox4.Text = "Open Download Manager";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.Visible = false;
+            openCheckbox.AutoSize = true;
+            openCheckbox.Checked = true;
+            openCheckbox.CheckState = CheckState.Checked;
+            openCheckbox.Location = new Point(12, 343);
+            openCheckbox.Name = "openCheckbox";
+            openCheckbox.Size = new Size(162, 19);
+            openCheckbox.TabIndex = 6;
+            openCheckbox.Text = "Open Download Manager";
+            openCheckbox.UseVisualStyleBackColor = true;
+            openCheckbox.Visible = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 374);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.tabControl2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.Name = "Form1";
-            this.ShowIcon = false;
-            this.Text = "Download Manager Setup";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(523, 374);
+            Controls.Add(licenceCheckbox);
+            Controls.Add(button1);
+            Controls.Add(label1);
+            Controls.Add(pictureBox1);
+            Controls.Add(openCheckbox);
+            Controls.Add(tabControl1);
+            Controls.Add(groupBox1);
+            Controls.Add(tabControl2);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            Name = "Form1";
+            ShowIcon = false;
+            Text = "Download Manager Setup";
+            FormClosing += Form1_FormClosing;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            tabControl2.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -345,17 +367,19 @@
         private Label label2;
         private FolderBrowserDialog folderBrowserDialog1;
         private ToolTip toolTip1;
-        private CheckBox checkBox2;
+        private CheckBox startMenuCheckbox;
         private Label label4;
-        private CheckBox checkBox1;
+        private CheckBox desktopShortcutCheckbox;
         private Label label3;
         private TabControl tabControl2;
         private TabPage tabPage3;
         private RichTextBox richTextBox1;
-        private CheckBox checkBox3;
+        private CheckBox licenceCheckbox;
         private GroupBox groupBox1;
         private ProgressBar progressBar1;
         private Label label5;
-        private CheckBox checkBox4;
+        private CheckBox openCheckbox;
+        private CheckBox certCheckbox;
+        private Label label6;
     }
 }

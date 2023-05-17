@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Reflection;
+using System.Xml;
 using File = System.IO.File;
 
 namespace DownloadManagerInstaller
@@ -17,6 +18,7 @@ namespace DownloadManagerInstaller
         string path;
         string md5Hash = "";
         bool installing = false;
+        bool noCertInstall = false;
 
         public Form1(string[]? args)
         {
@@ -26,14 +28,19 @@ namespace DownloadManagerInstaller
             {
                 if (args[0] == "install")
                 {
+                    if (args[1] == "nocert")
+                    {
+                        noCertInstall = true;
+                    }
+
                     silentInstall = true;
                     _instance.Hide();
                     _instance.ShowInTaskbar = false;
                     _instance.WindowState = FormWindowState.Minimized;
                     _instance.Visible = false;
                     textBox1.Text = @"C:\Download Manager\";
-                    checkBox1.Checked = true;
-                    checkBox2.Checked = true;
+                    desktopShortcutCheckbox.Checked = true;
+                    startMenuCheckbox.Checked = true;
                     Install();
                 }
                 else if (args[0] == "update")
@@ -97,16 +104,16 @@ namespace DownloadManagerInstaller
                 tabControl1.Visible = false;
                 tabControl2.Visible = true;
                 button1.Enabled = false;
-                checkBox3.Visible = true;
-                checkBox3.Enabled = false;
-                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Download-Manager-Community/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath(), "16bea09b03d106138b4aaad4e7a42829");
+                licenceCheckbox.Visible = true;
+                licenceCheckbox.Enabled = false;
+                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Download-Manager-Community/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath(), "7ee4bb010f45d9be66db310093fb8f40b19a1cd7b872234864dcbcb7d61a3808b840a360294a22ac7199710892e459fd85a026254ed2d424759bd86182bb8001");
                 progress.ShowDialog();
                 installStage += 1;
             }
             else if (installStage == 2)
             {
                 tabControl2.Visible = false;
-                checkBox3.Visible = false;
+                licenceCheckbox.Visible = false;
                 groupBox1.Visible = true;
                 button1.Text = "Finish";
                 button1.Enabled = false;
@@ -115,7 +122,7 @@ namespace DownloadManagerInstaller
             }
             else
             {
-                if (checkBox4.Checked)
+                if (openCheckbox.Checked)
                 {
                     ProcessStartInfo info = new ProcessStartInfo();
                     info.FileName = path + "DownloadManager.exe";
@@ -128,10 +135,10 @@ namespace DownloadManagerInstaller
 
         public void LicenseFailed()
         {
-            DialogResult result = MessageBox.Show("The MD5 verification of the license failed.\nRetry Download?", "Download Manager - Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            DialogResult result = MessageBox.Show("The SHA-512 verification of the license failed.\nRetry Download?", "Download Manager - Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             if (result == DialogResult.Yes)
             {
-                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath(), "16bea09b03d106138b4aaad4e7a42829");
+                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath(), "7ee4bb010f45d9be66db310093fb8f40b19a1cd7b872234864dcbcb7d61a3808b840a360294a22ac7199710892e459fd85a026254ed2d424759bd86182bb8001");
                 progress.ShowDialog();
             }
             else
@@ -189,7 +196,7 @@ namespace DownloadManagerInstaller
                         File.WriteAllBytes(path + "icon.ico", Properties.Resources.icon1);
 
                         // Create desktop shortcut
-                        if (checkBox1.Checked)
+                        if (desktopShortcutCheckbox.Checked)
                         {
                             string pathToExe = path + "DownloadManager.exe";
                             string commonDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
@@ -209,7 +216,7 @@ namespace DownloadManagerInstaller
                         _instance.Invoke(increaseProgress10);
 
                         // Create start menu shortcut
-                        if (checkBox2.Checked)
+                        if (startMenuCheckbox.Checked)
                         {
                             string pathToExe = path + "DownloadManager.exe";
                             string commonStartMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
@@ -239,10 +246,97 @@ namespace DownloadManagerInstaller
 
                         _instance.Invoke(increaseProgress10);
 
+                        if (!noCertInstall)
+                        {
+                            if (File.Exists(Path.GetTempPath() + "CertificateInstaller.xml"))
+                            {
+                                try
+                                {
+                                    File.Delete(Path.GetTempPath() + "CertificateInstaller.xml");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(String.Format("{0} ({1})\n{2}", ex.Message, ex.GetType().FullName, ex.StackTrace));
+                                    return;
+                                }
+                            }
+
+                            DownloadProgress downloadCertInstallerXml = new DownloadProgress("https://raw.githubusercontent.com/Soniczac7/app-update/main/CertificateInstaller.xml", Path.GetTempPath(), null);
+                            downloadCertInstallerXml.ShowDialog();
+
+                            if (!File.Exists(Path.GetTempPath() + "CertificateInstaller.xml"))
+                            {
+                                MessageBox.Show("The certificate installer could not be downloaded.\n(Unknown Download Error)", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            string version;
+                            string url;
+                            string mandatory;
+
+                            XmlDocument xml = new XmlDocument();
+                            xml.Load(System.IO.Path.GetTempPath() + "CertificateInstaller.xml");
+                            version = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(0).InnerText;
+                            url = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(1).InnerText;
+
+                            if (version == null || url == null)
+                            {
+                                MessageBox.Show("XML file is different from expected layout.", "Download Manager - Malformed XML", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            Debug.WriteLine($"Downloading CertificateInstaller version {version} from {url}.");
+
+                            DownloadProgress downloadCertInstaller = new DownloadProgress(url, Path.GetTempPath(), null);
+                            downloadCertInstaller.ShowDialog();
+
+                            if (Directory.Exists(Path.GetTempPath() + "CertificateInstaller"))
+                            {
+                                Directory.Delete(Path.GetTempPath() + "CertificateInstaller", true);
+                            }
+
+                            // Unzip CertificateInstaller
+                            Directory.CreateDirectory(Path.GetTempPath() + "CertificateInstaller");
+                            ZipFile.ExtractToDirectory(Path.GetTempPath() + "CertificateInstaller.zip", Path.GetTempPath() + "CertificateInstaller");
+
+                            // Start CertificateInstaller
+                            ProcessStartInfo startInfo = new ProcessStartInfo();
+                            startInfo.UseShellExecute = true;
+                            startInfo.FileName = Path.GetTempPath() + "CertificateInstaller\\CertificateInstaller.exe";
+                            startInfo.Arguments = "--install \"Soniczac7 Code Signing\"";
+                            startInfo.WorkingDirectory = Path.GetTempPath() + "CertificateInstaller";
+                            startInfo.ErrorDialog = true;
+                            Process process = new Process();
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            process.WaitForExit();
+
+                            if (process.ExitCode != 0)
+                            {
+                                switch (process.ExitCode)
+                                {
+                                    case 1:
+                                        MessageBox.Show($"The certificate could not be installed.\n(Certificate Install Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    case 2:
+                                        MessageBox.Show($"The certificate could not be installed because the certificate name is invalid.\n(Internal Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    case 3:
+                                        MessageBox.Show($"The certificate could not be installed because the command-line arguments are incorrect.\n(Internal Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    default:
+                                        MessageBox.Show($"The certificate could not be installed.\n(Unknown Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                }
+                            }
+                        }
+
+                        _instance.Invoke(increaseProgress10);
+
                         Invoke(new MethodInvoker(delegate ()
                             {
                                 label5.Text = "Download Manager has installed successfully.";
-                                checkBox4.Visible = true;
+                                openCheckbox.Visible = true;
                                 button1.Enabled = true;
                                 installing = false;
                             }));
@@ -296,7 +390,7 @@ namespace DownloadManagerInstaller
                         File.WriteAllBytes(path + "icon.ico", Properties.Resources.icon1);
 
                         // Create desktop shortcut
-                        if (checkBox1.Checked)
+                        if (desktopShortcutCheckbox.Checked)
                         {
                             string pathToExe = path + "DownloadManager.exe";
                             string commonDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
@@ -314,7 +408,7 @@ namespace DownloadManagerInstaller
                         }
 
                         // Create start menu shortcut
-                        if (checkBox2.Checked)
+                        if (startMenuCheckbox.Checked)
                         {
                             string pathToExe = path + "DownloadManager.exe";
                             string commonStartMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
@@ -339,6 +433,91 @@ namespace DownloadManagerInstaller
                         string uninstallString = path + "DownloadManagerInstaller.exe --uninstall";
 
                         RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString);
+
+                        if (!noCertInstall)
+                        {
+                            if (File.Exists(Path.GetTempPath() + "CertificateInstaller.xml"))
+                            {
+                                try
+                                {
+                                    File.Delete(Path.GetTempPath() + "CertificateInstaller.xml");
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(String.Format("{0} ({1})\n{2}", ex.Message, ex.GetType().FullName, ex.StackTrace));
+                                    return;
+                                }
+                            }
+
+                            DownloadProgress downloadCertInstallerXml = new DownloadProgress("https://raw.githubusercontent.com/Soniczac7/app-update/main/CertificateInstaller.xml", Path.GetTempPath(), null);
+                            downloadCertInstallerXml.ShowDialog();
+
+                            if (!File.Exists(Path.GetTempPath() + "CertificateInstaller.xml"))
+                            {
+                                MessageBox.Show("The certificate installer could not be downloaded.\n(Unknown Download Error)", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            string version;
+                            string url;
+                            string mandatory;
+
+                            XmlDocument xml = new XmlDocument();
+                            xml.Load(System.IO.Path.GetTempPath() + "CertificateInstaller.xml");
+                            version = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(0).InnerText;
+                            url = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(1).InnerText;
+
+                            if (version == null || url == null)
+                            {
+                                MessageBox.Show("XML file is different from expected layout.", "Download Manager - Malformed XML", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            Debug.WriteLine($"Downloading CertificateInstaller version {version} from {url}.");
+
+                            DownloadProgress downloadCertInstaller = new DownloadProgress(url, Path.GetTempPath(), null);
+                            downloadCertInstaller.ShowDialog();
+
+                            if (Directory.Exists(Path.GetTempPath() + "CertificateInstaller"))
+                            {
+                                Directory.Delete(Path.GetTempPath() + "CertificateInstaller", true);
+                            }
+
+                            // Unzip CertificateInstaller
+                            Directory.CreateDirectory(Path.GetTempPath() + "CertificateInstaller");
+                            ZipFile.ExtractToDirectory(Path.GetTempPath() + "CertificateInstaller.zip", Path.GetTempPath() + "CertificateInstaller");
+
+                            // Start CertificateInstaller
+                            ProcessStartInfo startInfo = new ProcessStartInfo();
+                            startInfo.UseShellExecute = true;
+                            startInfo.FileName = Path.GetTempPath() + "CertificateInstaller\\CertificateInstaller.exe";
+                            startInfo.Arguments = "--install \"Soniczac7 Code Signing\"";
+                            startInfo.WorkingDirectory = Path.GetTempPath() + "CertificateInstaller";
+                            startInfo.ErrorDialog = true;
+                            Process process = new Process();
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            process.WaitForExit();
+
+                            if (process.ExitCode != 0)
+                            {
+                                switch (process.ExitCode)
+                                {
+                                    case 1:
+                                        MessageBox.Show($"The certificate could not be installed.\n(Certificate Install Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    case 2:
+                                        MessageBox.Show($"The certificate could not be installed because the certificate name is invalid.\n(Internal Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    case 3:
+                                        MessageBox.Show($"The certificate could not be installed because the command-line arguments are incorrect.\n(Internal Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                    default:
+                                        MessageBox.Show($"The certificate could not be installed.\n(Unknown Error) [Exit Code: {process.ExitCode}]", "Download Manager Installer - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                }
+                            }
+                        }
 
                         Invoke(new MethodInvoker(delegate ()
                         {
@@ -505,7 +684,7 @@ namespace DownloadManagerInstaller
                 try
                 {
                     richTextBox1.Text = File.ReadAllText(path);
-                    checkBox3.Enabled = true;
+                    licenceCheckbox.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -541,7 +720,7 @@ namespace DownloadManagerInstaller
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             // Toggle button1
-            if (checkBox3.Checked)
+            if (licenceCheckbox.Checked)
             {
                 button1.Enabled = true;
             }

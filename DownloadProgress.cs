@@ -182,7 +182,7 @@ namespace DownloadManagerInstaller
                         Invoke(new MethodInvoker(delegate ()
                         {
                             byte[] fileData = File.ReadAllBytes(location + fileName);
-                            byte[] myHash = MD5.Create().ComputeHash(fileData);
+                            byte[] myHash = SHA512.Create().ComputeHash(fileData);
                             StringBuilder result = new StringBuilder(myHash.Length * 2);
 
                             for (int i = 0; i < myHash.Length; i++)
