@@ -29,3 +29,12 @@
 /obj/Debug/net6.0-windows/DownloadManagerInstaller.csproj.FileListAbsolute.txt
 /obj/Debug/net6.0-windows/refint/DownloadManagerInstaller.dll
 /obj/Debug/net6.0-windows/DownloadManagerInstaller.csproj.CoreCompileInputs.cache
+/.vs/ProjectEvaluation/downloadmanagerinstaller.metadata.v2
+/.vs/ProjectEvaluation/downloadmanagerinstaller.metadata.v5.2
+/.vs/ProjectEvaluation/downloadmanagerinstaller.projects.v2
+/.vs/ProjectEvaluation/downloadmanagerinstaller.projects.v5.2
+/bin/Debug/net6.0-windows/DownloadManagerInstaller.exe
+/bin/Debug/net6.0-windows/DownloadManagerInstaller.pdb
+/bin/Debug/net6.0-windows/DownloadManagerInstaller.dll
+/obj/Debug/net6.0-windows/DownloadManagerInstaller.Properties.Resources.resources
+/obj/Debug/net6.0-windows/DownloadManagerInstaller.csproj.GenerateResource.cache
