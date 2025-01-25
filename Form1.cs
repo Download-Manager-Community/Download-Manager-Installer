@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Xml;
 using File = System.IO.File;
+using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 namespace DownloadManagerInstaller
 {
