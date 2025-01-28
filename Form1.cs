@@ -242,8 +242,9 @@ namespace DownloadManagerInstaller
                         string installLocation = path + "DownloadManager.exe";
                         string displayIcon = path + "icon.ico";
                         string uninstallString = path + "DownloadManagerInstaller.exe --uninstall";
+                        string versionString = GetAssemblyVersion(path + "DownloadManager.exe").ToString();
 
-                        RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString);
+                        RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString, versionString);
 
                         _instance.Invoke(increaseProgress10);
 
@@ -432,8 +433,9 @@ namespace DownloadManagerInstaller
                         string installLocation = path + "DownloadManager.exe";
                         string displayIcon = path + "icon.ico";
                         string uninstallString = path + "DownloadManagerInstaller.exe --uninstall";
+                        string versionString = GetAssemblyVersion(path + "DownloadManager.exe").ToString();
 
-                        RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString);
+                        RegisterControlPanelProgram(appName, installLocation, displayIcon, uninstallString, versionString);
 
                         if (!noCertInstall)
                         {
@@ -659,7 +661,24 @@ namespace DownloadManagerInstaller
             }
         }
 
-        public static void RegisterControlPanelProgram(string appName, string installLocation, string displayicon, string uninstallString)
+        /// <summary>
+        /// Get the version of an assembly from a file path
+        /// </summary>
+        /// <param name="executablePath">The path of the assembly.</param>
+        /// <returns>The version of the assembly.</returns>
+        public static Version GetAssemblyVersion(string executablePath)
+        {
+            // Load the assembly from the specified path
+            Assembly assembly = Assembly.LoadFile(executablePath);
+
+            // Get the assembly name which contains the version information
+            AssemblyName assemblyName = assembly.GetName();
+
+            // Return the version
+            return assemblyName.Version;
+        }
+
+        public static void RegisterControlPanelProgram(string appName, string installLocation, string displayicon, string uninstallString, string version)
         {
             string Install_Reg_Loc = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
             RegistryKey hKey = (Registry.LocalMachine).OpenSubKey(Install_Reg_Loc, true);
@@ -676,6 +695,7 @@ namespace DownloadManagerInstaller
             appKey.SetValue("InstallLocation", (object)installLocation, RegistryValueKind.ExpandString);
             appKey.SetValue("DisplayIcon", (object)displayicon, RegistryValueKind.String);
             appKey.SetValue("UninstallString", (object)uninstallString, RegistryValueKind.ExpandString);
+            appKey.SetValue("DisplayVersion", (object)version, RegistryValueKind.String);
         }
 
         public void LicenseDownloaded(string path)
