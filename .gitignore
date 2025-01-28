@@ -38,3 +38,6 @@
 /bin/Debug/net6.0-windows/DownloadManagerInstaller.dll
 /obj/Debug/net6.0-windows/DownloadManagerInstaller.Properties.Resources.resources
 /obj/Debug/net6.0-windows/DownloadManagerInstaller.csproj.GenerateResource.cache
+/bin/Debug/net8.0-windows7.0/DownloadManagerInstaller.dll
+/bin/Debug/net8.0-windows7.0/DownloadManagerInstaller.exe
+/bin/Debug/net8.0-windows7.0/DownloadManagerInstaller.pdb
